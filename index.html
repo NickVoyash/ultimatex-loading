@@ -1,24 +1,86 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UltimateX Loading</title><style>
-*{box-sizing:border-box}html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#080508;color:#fff;font-family:Arial,sans-serif}
+
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UltimateX Loading</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#080508;color:#fff;font-family:Arial,sans-serif}
+
 #banner{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:fill;display:block;z-index:0}
+
 .panel{position:fixed;z-index:2;left:29%;width:42%;bottom:10%;padding:14px 20px;background:rgba(10,5,8,.94);border:2px solid #ff3434;box-shadow:0 0 20px #f11,inset 0 0 15px #5d0505;text-align:center}
-.title{font-weight:bold;font-size:clamp(17px,2vw,32px);text-shadow:0 0 10px #f33}.bar{height:12px;border:1px solid #f66;border-radius:12px;overflow:hidden;background:#1b1115;margin:12px 0 8px}.barfill{width:35%;height:100%;background:linear-gradient(90deg,#600,#f22,#fff,#f22,#600);animation:scan 2s ease-in-out infinite}.status{font-size:clamp(11px,1vw,17px);overflow-wrap:anywhere}@keyframes scan{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}
-</style></head><body><img id="banner" src="./banner.png" alt="UltimateX" /><div class="panel"><div class="title" id="title">Подключение к серверу…</div><div class="bar"><div class="barfill"></div></div><div class="status" id="status">Ожидание информации от Garry’s Mod</div></div><script>
-function SetStatusChanged(s){document.getElementById('status').textContent=String(s);document.getElementById('title').textContent='Загрузка игровых файлов…'}
-function SetFilesNeeded(n){document.getElementById('status').textContent='Файлов к загрузке: '+n}
-function SetFilesTotal(n){document.getElementById('status').textContent='Всего файлов: '+n}
-function DownloadingFile(name){document.getElementById('title').textContent='Загрузка игровых файлов…';document.getElementById('status').textContent='Файл: '+name}
-function GameDetails(serverurl,servername,mapname,maxplayers,steamid,gamemode){document.getElementById('status').textContent='Сервер: '+(servername||'UltimateX')+' • Карта: '+(mapname||'…')}
-</script></body></html>
+
+.title{font-weight:bold;font-size:clamp(17px,2vw,32px);text-shadow:0 0 10px #f33}
+
+.bar{height:12px;border:1px solid #f66;border-radius:12px;overflow:hidden;background:#1b1115;margin:12px 0 8px}
+
+.barfill{width:35%;height:100%;background:linear-gradient(90deg,#600,#f22,#fff,#f22,#600);animation:scan 2s ease-in-out infinite}
+
+.status{font-size:clamp(11px,1vw,17px);overflow-wrap:anywhere}
+
+@keyframes scan{
+0%{transform:translateX(-110%)}
+100%{transform:translateX(300%)}
+}
+</style>
+</head>
+
+<body>
+
+<img id="banner" src="./banner.png" alt="UltimateX">
+
+<div class="panel">
+  <div class="title" id="title">Подключение к серверу…</div>
+  <div class="bar"><div class="barfill"></div></div>
+  <div class="status" id="status">Ожидание информации от Garry’s Mod</div>
+</div>
+
 <audio id="ultimatex-music" autoplay loop preload="auto">
-  <source src="INTRO.mp3" type="audio/mpeg">
+  <source src="./INTRO.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 const music = document.getElementById("ultimatex-music");
 music.volume = 0.5;
 
-music.play().catch(() => {
-  console.log("Autoplay blocked by browser");
-});
+function startMusic() {
+  if (music.paused) {
+    music.play().catch(function(err) {
+      console.log("UltimateX music autoplay unavailable:", err);
+    });
+  }
+}
+
+startMusic();
+
+document.addEventListener("click", startMusic);
+
+function SetStatusChanged(s){
+  document.getElementById('status').textContent=String(s);
+  document.getElementById('title').textContent='Загрузка игровых файлов…';
+}
+
+function SetFilesNeeded(n){
+  document.getElementById('status').textContent='Файлов к загрузке: '+n;
+}
+
+function SetFilesTotal(n){
+  document.getElementById('status').textContent='Всего файлов: '+n;
+}
+
+function DownloadingFile(name){
+  document.getElementById('title').textContent='Загрузка игровых файлов…';
+  document.getElementById('status').textContent='Файл: '+name;
+}
+
+function GameDetails(serverurl,servername,mapname,maxplayers,steamid,gamemode){
+  document.getElementById('status').textContent='Сервер: '+(servername||'UltimateX')+' • Карта: '+(mapname||'…');
+}
 </script>
+
+</body>
+</html>
