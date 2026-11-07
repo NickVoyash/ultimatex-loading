@@ -10,3 +10,15 @@ function SetFilesTotal(n){document.getElementById('status').textContent='Все�
 function DownloadingFile(name){document.getElementById('title').textContent='Загрузка игровых файлов…';document.getElementById('status').textContent='Файл: '+name}
 function GameDetails(serverurl,servername,mapname,maxplayers,steamid,gamemode){document.getElementById('status').textContent='Сервер: '+(servername||'UltimateX')+' • Карта: '+(mapname||'…')}
 </script></body></html>
+<audio id="ultimatex-music" autoplay loop preload="auto">
+  <source src="INTRO.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("ultimatex-music");
+music.volume = 0.5;
+
+music.play().catch(() => {
+  console.log("Autoplay blocked by browser");
+});
+</script>
